@@ -1,5 +1,6 @@
 from helpers.utilities.logger_utility import LogUtility
 import os
+import re
 
 
 class FileUtility:
@@ -27,3 +28,9 @@ class FileUtility:
                                    "Exception occurred, while reading file `{}` (->on FileHandler=>get_file_content_as_list()<-) : {}".format(
                                        file_location, str(ex)))
             raise Exception("could not able to read and get file `{}` as list".format(file_location))
+
+    @staticmethod
+    def get_file_extension(file_path):
+        pattern = '''^(?:.*)(\..*$)'''
+        match = re.findall(pattern, file_path, re.MULTILINE | re.IGNORECASE)
+        return match[0] if match is not None else ''
