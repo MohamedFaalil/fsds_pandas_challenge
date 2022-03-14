@@ -19,9 +19,11 @@ class Document(FileHandler):
         for key in pattern_dict.keys():
             pattern = pattern_dict[key]
             match = re.findall(pattern, self.document_text, re.MULTILINE | re.IGNORECASE)
-            if match is None:
+            if match is None or len(match) == 0: # no matches or empty matches
                 continue
             skills_str = self._get_cleared_string(match)
+            if len(skills_str) == 0 : #after clearing getting empty string
+                continue
             skills += "{skill_key} => {skill} ".format(skill_key=key, skill=skills_str)
         return skills
 
